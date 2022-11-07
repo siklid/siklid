@@ -1,1 +1,11 @@
+###> IDEs
 /.idea
+/.vscode
+###< IDEs
+
+###> JS
+/node_modules
+/build
+/.docusaurus
+/.env
+###< JS
