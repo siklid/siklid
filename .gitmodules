@@ -1,9 +1,9 @@
 [submodule "api"]
 	path = api
-	url = https://github.com/piscibus/siklid-api.git
+	url = https://github.com/siklid/siklid-api.git
 [submodule "web"]
 	path = web
-	url = https://github.com/piscibus/siklid-api.git
+	url = https://github.com/siklid/siklid-api.git
 [submodule "docs"]
 	path = docs
-	url = https://github.com/piscibus/siklid-api.git
+	url = https://github.com/siklid/siklid-api.git
