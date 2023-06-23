@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Updates all submodules
+function update_submodules {
+    git submodule init
+    git submodule update
+}
+
+# Supported commands
+#  - update - updates all submodules
+
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 <command>"
+    echo "Commands:"
+    echo "  update - updates all submodules"
+    exit 1
+fi
+
+case "$1" in
+    update)
+        update_submodules
+        ;;
+    *)
+        echo "Unknown command: $1"
+        exit 1
+        ;;
+esac
