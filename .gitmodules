@@ -7,6 +7,3 @@
 [submodule "docs"]
 	path = docs
 	url = https://github.com/siklid/siklid-docs.git
-[submodule "mobile"]
-    path = mobile
-    url = https://github.com/siklid/siklid-mobile.git
