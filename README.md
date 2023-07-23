@@ -19,6 +19,6 @@ Siklid is licensed under the [MIT License](/LICENSE).
 
 ## Commands
 
-| Command          | Description            |
-|------------------|------------------------|
-| `/siklid/update` | Updates all submodules |
+| Command | Description |
+|---------|-------------|
+|         |             |
