@@ -1,1 +1,117 @@
 #!/bin/bash
+
+# ------------------------------------------------------------------------------------
+# This script is used to run the local development server for all Skilid subprojects.
+# ------------------------------------------------------------------------------------
+
+# ------------------------------------------------------------------------------------
+# Repositories
+# ------------------------------------------------------------------------------------
+REPO_API="https://github.com/siklid/siklid-api"
+REPO_WEB="https://github.com/siklid/siklid-web"
+
+
+# Available commands:
+# 1. `clone` : Clone all subprojects
+# 2. `api:start` : Start the API server
+# 3. `web:start` : Start the Web server
+
+# ------------------------------------------------------------------------------------
+# Helper functions
+# ------------------------------------------------------------------------------------
+
+# Color codes
+COLOR_DEFAULT='\033[0m'
+COLOR_RED='\033[0;31m'
+COLOR_BLUE='\033[0;34m'
+COLOR_GREEN='\033[0;32m'
+COLOR_YELLOW='\033[0;33m'
+
+# Print colored text
+# $1: color code
+# $2: text
+print_color() {
+    echo -e "$1$2${COLOR_DEFAULT}"
+}
+
+# Print error message
+# $1: text
+error_msg() {
+    print_color "$COLOR_RED" "$1"
+}
+
+# Print success message
+# $1: text
+success_msg() {
+    print_color "$COLOR_GREEN" "$1"
+}
+
+# Print info message
+# $1: text
+info_msg() {
+    print_color "$COLOR_BLUE" "$1"
+}
+
+# Print warning message
+# $1: text
+warning_msg() {
+    # shellcheck disable=SC2086
+    print_color $COLOR_YELLOW "$1"
+}
+
+# Print default message
+# $1: text
+default_msg() {
+    print_color "$COLOR_DEFAULT" "$1"
+}
+
+# ------------------------------------------------------------------------------------
+# Commands
+# ------------------------------------------------------------------------------------
+
+# Clone all subprojects
+clone () {
+    info_msg "Cloning subprojects..."
+    git clone "$REPO_API"
+    git clone "$REPO_WEB"
+    exit 0
+}
+
+# Start the API server
+api_start() {
+    info_msg "Starting API server..."
+    cd siklid-api || exit 1
+}
+
+# Start the Web server
+web_start() {
+    info_msg "Starting Web server..."
+    cd siklid-web || exit 1
+}
+
+# ------------------------------------------------------------------------------------
+# Main
+# ------------------------------------------------------------------------------------
+
+command_list() {
+warning_msg "--- Available commands ---"
+    # Extract the available commands and descriptions
+    awk -F'`' '/^# [0-9]+\./{gsub(/: /, ""); printf "%s - %s\n", "'"$COLOR_DEFAULT"'" $2, $3}' "$0"
+    warning_msg "--------------------------"
+    exit 0
+}
+
+# Show all available commands if no command is provided
+if [ $# -eq 0 ]; then
+    command_list
+fi
+
+# Run the command or show an error message
+cmd="${1//:/_}"
+if [ "$(type -t "$cmd")" = "function" ]; then
+    "$cmd" "${@:2}"
+else
+    error_msg "Command '$1' not found!"
+    command_list
+    exit 1
+fi
